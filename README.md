@@ -1,3 +1,3 @@
 # About This Repository #
 ----------
-This repository contains a file "mtms.sql" which is the backup database file of my graduation project.
+This repository contains some files which are the backup database file of my graduation project.
