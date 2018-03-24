@@ -12,3 +12,11 @@ FROM movie_ticket_management_system.movie_schedule
 where movie_id=1
 group by auditorium_theater_id
 order by auditorium_theater_id asc;
+
+# Retrieve movie schedule going to be shown the same movie in the same theater in ascending order of its price.
+# 查询某一个影院上映的同一部电影，按照价格升序排序
+SELECT *
+FROM movie_ticket_management_system.movie_schedule
+WHERE auditorium_theater_id=1 AND movie_title='The Greatest Showman (2017)'
+GROUP BY auditorium_id
+ORDER BY price asc;
