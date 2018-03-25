@@ -20,3 +20,10 @@ FROM movie_ticket_management_system.movie_schedule
 WHERE auditorium_theater_id=1 AND movie_title='The Greatest Showman (2017)'
 GROUP BY auditorium_id
 ORDER BY price asc;
+
+# Retrieve the top rated movies by each movies average score in descending order
+# 按照电影评分平均分的高到低，查询出热门电影
+select (select title from movie where id=movie_id) as title, avg(score) as average_score
+from user_review
+group by movie_id
+order by average_score desc;
