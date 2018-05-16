@@ -41,9 +41,9 @@ LEFT JOIN(SELECT user_id, movie_id, score FROM user_review) AS user_review
 ON cartesian_product.user_id = user_review.user_id AND cartesian_product.movie_id = user_review.movie_id
 ORDER BY cartesian_product.user_id ASC , cartesian_product.movie_id ASC;
 
-# Retrieve common movie that the specific user and other users have both left comment.
+# Retrieve common movie that the specific user(e.g. user_id=7) and other users have both left comment.
 # 获取指定用户和其他用户共同评价过的电影
 SELECT DISTINCT movie_id, movie.title
 FROM user_review ur LEFT JOIN movie
 ON movie_id = movie.id
-WHERE ur.movie_id IN (SELECT movie_id FROM user_review WHERE user_id = 10);
+WHERE ur.movie_id IN (SELECT movie_id FROM user_review WHERE user_id = 7) and ur.user_id!=7;
