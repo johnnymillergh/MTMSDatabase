@@ -32,3 +32,18 @@ select (select title from movie where id=movie_id) as title, avg(score) as avera
 from user_review
 group by movie_id
 order by average_score desc, title asc;
+
+# Retrieve user-score matrix for recommendation system.
+# 获取（用户-评分）矩阵，为推荐系统提供
+SELECT cartesian_product.user_id, cartesian_product.movie_id, IFNULL(score, 0) AS score
+FROM(SELECT u.id AS user_id, m.id AS movie_id FROM user u JOIN movie m) AS cartesian_product
+LEFT JOIN(SELECT user_id, movie_id, score FROM user_review) AS user_review
+ON cartesian_product.user_id = user_review.user_id AND cartesian_product.movie_id = user_review.movie_id
+ORDER BY cartesian_product.user_id ASC , cartesian_product.movie_id ASC;
+
+# Retrieve common movie that the specific user and other users have both left comment.
+# 获取指定用户和其他用户共同评价过的电影
+SELECT DISTINCT movie_id, movie.title
+FROM user_review ur LEFT JOIN movie
+ON movie_id = movie.id
+WHERE ur.movie_id IN (SELECT movie_id FROM user_review WHERE user_id = 10);
